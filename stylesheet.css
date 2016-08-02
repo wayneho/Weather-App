@@ -1,0 +1,157 @@
+h1{
+  margin-top: 0 !important;
+  margin-bottom: 20px !important;
+}
+
+.long-term-forecast{
+  background-color: rgba(55,90,127, 0.3);
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.long-term-forecast li {
+  width: 14%;
+  min-width: 60px;
+  font-size: 20px;
+  vertical-align: top;
+  margin-bottom: 10px;
+}
+.long-term-forecast li img{
+  width: 100%;
+}
+
+.short-term-forecast{
+  background-color: rgba(55,90,127, 0.3);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.short-term-forecast li{
+  width: 12%;
+  min-width: 60px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.current-weather{
+  background-color: rgba(55,90,127, 0.3);
+  font-size: 28px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.current-weather span{
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+}
+
+.current-weather span>div:first-child{
+  font-size: 72px;
+}
+
+.current-weather img{
+  width: 40%;
+  max-width: 200px;
+  min-width: 50px;
+}
+
+.current-weather .date{
+  font-size: 14px;
+}
+
+.geosuggest {
+  font-size: 16px;
+  position: relative;
+  text-align: left;
+  display: inline-block;
+}
+.geosuggest__input {
+  width: 100%;
+  border: 2px solid transparent;
+  box-shadow: 0 0 1px #3d464d;
+  padding: .15em .5em;
+  -webkit-transition: border 0.2s, box-shadow 0.2s;
+          transition: border 0.2s, box-shadow 0.2s;
+}
+.geosuggest__input:focus {
+  border-color: #267dc0;
+  box-shadow: 0 0 0 transparent;
+}
+.geosuggest__suggests {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 25em;
+  padding: 0;
+  margin-top: -1px;
+  background: #fff;
+  border: 2px solid #267dc0;
+  border-top-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  list-style: none;
+  z-index: 5;
+}
+.geosuggest__suggests--hidden {
+  max-height: 0;
+  overflow: hidden;
+  border-width: 0;
+
+}
+
+.geosuggest-item {
+  font-size: 18px;
+  font-size: 1rem;
+  padding: .5em .65em;
+  cursor: pointer;
+}
+.geosuggest-item:hover,
+.geosuggest-item:focus {
+  background: #f5f5f5;
+}
+.geosuggest-item--active {
+  background: #267dc0;
+  color: #fff;
+}
+.geosuggest-item--active:hover,
+.geosuggest-item--active:focus {
+  background: #ccc;
+}
+
+.react-spinner {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  top: 50%;
+  left: 50%;
+}
+
+.react-spinner_bar {
+  -webkit-animation: react-spinner_spin 1.2s linear infinite;
+  -moz-animation: react-spinner_spin 1.2s linear infinite;
+  animation: react-spinner_spin 1.2s linear infinite;
+  border-radius: 5px;
+  background-color: white;
+  position: absolute;
+  width: 20%;
+  height: 7.8%;
+  top: -3.9%;
+  left: -10%;
+}
+
+@keyframes react-spinner_spin {
+ 0% { opacity: 1; }
+ 100% { opacity: 0.15; }
+}
+
+@-moz-keyframes react-spinner_spin {
+ 0% { opacity: 1; }
+ 100% { opacity: 0.15; }
+}
+
+@-webkit-keyframes react-spinner_spin {
+ 0% { opacity: 1; }
+ 100% { opacity: 0.15; }
+}
