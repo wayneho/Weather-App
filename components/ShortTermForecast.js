@@ -15,7 +15,7 @@ function extractTime(date){
 const ShortTermForecast = ({ unit, forecast }) => (
   <div className={"short-term-forecast"}>
     <h1>Short Term Forecast</h1>
-    <ul className="list-inline text-center">
+    <ul className={"list-inline text-center"}>
       {
         forecast.map(f => {
           return (

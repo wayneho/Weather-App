@@ -1,5 +1,6 @@
 import { fetchCurrentWeather, fetchShortForecast, fetchLongForecast } from '../api/weather'
 import { ADD_LOCATION,
+         REMOVE_LOCATION,
          SET_UNIT,
          SET_LOCATION,
          REQUEST_CURRENT_WEATHER,
@@ -31,6 +32,13 @@ export function setLocation(location) {
 export function addLocation(id){
   return {
     type: ADD_LOCATION,
+    id
+  }
+}
+
+export function removeLocation(id){
+  return{
+    type: REMOVE_LOCATION,
     id
   }
 }
@@ -75,7 +83,10 @@ function receivedAllData(json){
   }
 }
 
-// if invalid city return error message
+// getCurrentWeather checks if the requested location is contained
+// in the openweather api database.
+// if not found dispatches an error message
+// if found it adds the new location to the store
 export function getCurrentWeather(lat, lon){
   return (dispatch, getState) => {
     dispatch(requestCurrentWeather(lat, lon))
@@ -84,11 +95,10 @@ export function getCurrentWeather(lat, lon){
         if(json.cod === "404")
           dispatch(setErrorMessage(json.message))
         else{
-          //locationsOrder is an array containing all the locations
           const locations = getState().locationsOrder
           const id = json.id.toString()
           if(locations.indexOf(id) === -1){
-            // set selectedLocation to the initial location
+            // if locations array is empty set the view to the newly added location
             if(locations.length === 0)
               dispatch(setLocation(id))
             Promise.all([

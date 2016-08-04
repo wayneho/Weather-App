@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { setLocation, getShortForecastIfNeeded, getLongForecastIfNeeded } from '../actions'
+import { setLocation } from '../actions'
 import NavigationBar from '../components/NavigationBar'
 
 const mapStateToProps = (state) => {

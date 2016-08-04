@@ -15,9 +15,11 @@ class AddLocationForm extends Component{
   }
 
   onSuggestSelect(suggest){
-    const { dispatch } = this.props
+    const { dispatch, errorMessage } = this.props
     this.setState({city: suggest, isCitySelected: true})
-    dispatch(clearErrorMessage())
+    
+    if(errorMessage.length>0)
+      dispatch(clearErrorMessage())
   }
   onFocus(){
     this.setState({isCitySelected: false})
@@ -63,8 +65,7 @@ class AddLocationForm extends Component{
 
 const mapStateToProps = (state) => {
   return{
-    errorMessage: state.errorMessage,
-    locations: Object.keys(state.locations)
+    errorMessage: state.errorMessage
   }
 }
 

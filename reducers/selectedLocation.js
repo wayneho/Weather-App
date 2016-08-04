@@ -1,4 +1,4 @@
-import { SET_LOCATION } from '../constants/ActionTypes'
+import { SET_LOCATION, REMOVE_LOCATION } from '../constants/ActionTypes'
 
 export default function selectedLocation(state = '', action){
   switch(action.type){

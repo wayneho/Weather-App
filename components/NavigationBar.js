@@ -1,29 +1,42 @@
-import React, { PropTypes } from 'react'
+require("../stylesheet.css")
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import { Nav, NavItem } from 'react-bootstrap'
+import NavigationBarItem from './NavigationBarItem'
 import { convertUnit } from '../utils/ConvertUnit'
 import { capitalizeWords } from '../utils/CapitalizeWords'
 
-const NavBar = ({ unit, selectedLocation, locations, locationsOrder, onClick }) => (
+const NavigationBar = ({ selectedLocation, locations, locationsOrder }) => (
   <Nav bsStyle="pills" activeKey={selectedLocation}>
-    {
-      locationsOrder.map(id => {
-        if(!locations[id].isFetching)
-          return (
-            <NavItem eventKey={id} title={id} key={id} onClick={()=>{onClick(id)}}>
-              {`${locations[id].city} - ${convertUnit(locations[id].currentWeather.temp, unit)} °`}
-            </NavItem>
-          )
-      })
-    }
+    {locationsOrder.map(id => {
+      if(!locations[id].isFetching)
+        return (
+          <NavItem
+            eventKey={id}
+            title={locations[id].city} 
+            key={id}
+            className={"nav-item-wrapper"} >
+            <NavigationBarItem id={id} />
+          </NavItem>
+        )
+    })}
   </Nav>
 )
 
-NavBar.propTypes = {
-  unit: PropTypes.string.isRequired,
+NavigationBar.propTypes = {
   selectedLocation: PropTypes.string.isRequired,
   locations: PropTypes.object.isRequired,
-  locationsOrder: PropTypes.array.isRequired,
-  onClick: PropTypes.func.isRequired
+  locationsOrder: PropTypes.array.isRequired
 }
 
-export default NavBar
+const mapStateToProps = (state) => {
+  return{
+    selectedLocation: state.selectedLocation,
+    locations: state.locations,
+    locationsOrder: state.locationsOrder
+  }
+}
+
+export default connect(mapStateToProps)(NavigationBar)
+
+

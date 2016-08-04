@@ -1,6 +1,6 @@
 import { RECEIVE_CURRENT_WEATHER, RECEIVE_SHORT_FORECAST, 
          RECEIVE_LONG_FORECAST, ADD_LOCATION,
-         RECEIVED_ALL_DATA
+         REMOVE_LOCATION, RECEIVED_ALL_DATA
        } from '../constants/ActionTypes'
 
 function currentWeather(state = {
@@ -48,6 +48,10 @@ export default function locations(state = {}, action){
           isFetching: true
         }
       }
+    case REMOVE_LOCATION:
+      let nextState = Object.assign({}, state)
+      delete nextState[action.id]
+      return nextState
     case RECEIVE_CURRENT_WEATHER:
       return {
         ...state,
