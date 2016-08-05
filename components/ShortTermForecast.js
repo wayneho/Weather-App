@@ -1,4 +1,3 @@
-require("../stylesheet.css")
 import React, { PropTypes } from 'react'
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import { convertUnit } from '../utils/ConvertUnit'

@@ -1,4 +1,3 @@
-require("../stylesheet.css")
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { NavItem } from 'react-bootstrap'

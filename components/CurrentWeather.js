@@ -1,4 +1,3 @@
-require("../stylesheet.css")
 import React, { PropTypes } from 'react'
 import { convertUnit } from '../utils/ConvertUnit'
 import { capitalizeWords } from '../utils/CapitalizeWords'
