@@ -31,10 +31,10 @@ app.use((req,res) => {
   }
 })
 
-app.listen(port, function(error) {
+app.listen(port,'0.0.0.0', function(error) {
   if (error) {
     console.error(error)
   } else {
-    console.info("==> 🌎  Listening on port %s.", port)
+    console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port)
   }
 })
