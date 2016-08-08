@@ -1,17 +1,24 @@
-var webpack = require('webpack')
-var webpackDevMiddleware = require('webpack-dev-middleware')
-var webpackHotMiddleware = require('webpack-hot-middleware')
-var config = require('./webpack.config')
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
+const config = require('./webpack.config')
+const express = require('express')
 
-var app = new (require('express'))()
-var port = process.env.PORT || 8080
+const app = new (require('express'))()
+const port = process.env.PORT || 8080
 
-var compiler = webpack(config)
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
-app.use(webpackHotMiddleware(compiler))
+console.log(process.env.NODE_ENV)
 
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + '/index.html')
+if(process.env.NODE_ENV !== 'production'){ 
+  const compiler = webpack(config)
+  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
+  app.use(webpackHotMiddleware(compiler))
+
+}
+
+app.use(express.static(__dirname + '/dist'))
+app.get("*", function(req, res) {
+  res.sendFile(__dirname + '/dist/index.html')
 })
 
 app.use((req,res) => {
@@ -28,6 +35,6 @@ app.listen(port, function(error) {
   if (error) {
     console.error(error)
   } else {
-    console.info("==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port)
+    console.info("==> 🌎  Listening on port %s.", port)
   }
 })

@@ -47,16 +47,16 @@ class AddLocationForm extends Component{
   render(){
     let errorMessage = this.props.errorMessage
     return(
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit} className="navbar-form">
         <GeoSuggest
           ref="searchCityInput"
           placeholder="City Name"
           onSuggestSelect={this.onSuggestSelect}
           onFocus={this.onFocus}
-          types={['(cities)']}  
+          types={['(cities)']} 
         />
         {' '}
-        <Button type="submit">Add</Button>
+        <Button type="submit" bsSize="small">Add</Button>
         <div style={{color: 'red'}} onClick={this.removeErrorMessage}>{errorMessage}</div>
       </Form>
     )

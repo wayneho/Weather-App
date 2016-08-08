@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && webpack -p --progress --colors --profile --config ./webpack.production.config.js"
   },
   "repository": {
     "type": "git",
@@ -36,16 +38,17 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-2": "^6.11.0",
     "babel-runtime": "^6.9.2",
+    "webpack": "^1.13.1"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^2.22.0",
+    "stats-webpack-plugin": "^0.4.0",
     "css-loader": "^0.23.1",
     "file-loader": "^0.9.0",
     "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.1"
-  },
-  "devDependencies": {
-    
   }
 }

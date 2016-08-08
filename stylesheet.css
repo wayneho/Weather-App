@@ -1,3 +1,6 @@
+html * {
+  font-family: "Roboto",Arial, sans-serif !important;
+}
 h1{
   margin-top: 0 !important;
   margin-bottom: 20px !important;
@@ -62,9 +65,11 @@ h1{
 
 .geosuggest {
   font-size: 16px;
+  line-height: 24px;
   position: relative;
   text-align: left;
   display: inline-block;
+  vertical-align: middle;
 }
 .geosuggest__input {
   width: 100%;
@@ -75,8 +80,7 @@ h1{
           transition: border 0.2s, box-shadow 0.2s;
 }
 .geosuggest__input:focus {
-  border-color: #267dc0;
-  box-shadow: 0 0 0 transparent;
+  border-color: #0ce3ac;
 }
 .geosuggest__suggests {
   position: absolute;
@@ -87,12 +91,13 @@ h1{
   padding: 0;
   margin-top: -1px;
   background: #fff;
-  border: 2px solid #267dc0;
+  border: 2px solid #0ce3ac;
   border-top-width: 0;
   overflow-x: hidden;
   overflow-y: auto;
   list-style: none;
   z-index: 5;
+  color: black;
 }
 .geosuggest__suggests--hidden {
   max-height: 0;

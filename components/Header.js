@@ -16,7 +16,7 @@ const Header = () => (
         <AddLocationForm />
       </Navbar.Form>
       <Navbar.Form pullRight>
-        <ButtonGroup>
+        <ButtonGroup bsSize="small" className="navbar-btn">
           <UnitButtonsContainer unit="celsius">Celsius</UnitButtonsContainer>
           <UnitButtonsContainer unit="farenheit">Farenheit</UnitButtonsContainer>          
         </ButtonGroup>
