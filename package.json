@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "clean": "rm -rf dist",
+    "postinstall": "npm run build",
     "build": "npm run clean && webpack -p --progress --colors --profile --config ./webpack.production.config.js"
   },
   "repository": {
