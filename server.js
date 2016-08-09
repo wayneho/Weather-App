@@ -1,7 +1,3 @@
-const webpack = require('webpack')
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
-const config = require('./webpack.config')
 const express = require('express')
 
 const app = new (require('express'))()
@@ -9,7 +5,11 @@ const port = process.env.PORT || 8080
 
 console.log(process.env.NODE_ENV)
 
-if(process.env.NODE_ENV !== 'production'){ 
+if(process.env.NODE_ENV !== 'production'){
+  const webpack = require('webpack')
+  const webpackDevMiddleware = require('webpack-dev-middleware')
+  const webpackHotMiddleware = require('webpack-hot-middleware')
+  const config = require('./webpack.config') 
   const compiler = webpack(config)
   app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
   app.use(webpackHotMiddleware(compiler))
