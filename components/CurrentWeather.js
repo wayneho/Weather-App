@@ -36,14 +36,14 @@ const CurrentWeather = ({ selectedUnit, currentWeather }) => {
   return(
     <div className={'current-weather'}>
      <div className={"date"}>{observation_time}</div>
-     <h1>{full}</h1>
-     <h2>{country}</h2>
-     <div className="text-center">
+     <h2>{full}</h2>
+     <h3>{country}</h3>
+     <div className={"text-center"}>
+     <img src={icon_url} alt={icon} />
       <span>
-        <div>{`${Math.round(temp)}°`}</div>
-        <div>{capitalizeWords(weather)}</div>
+        <div className={"current-temp"}>{`${Math.round(temp)}°`}</div>
+        <h3>{capitalizeWords(weather)}</h3>
       </span>
-      <img src={icon_url} alt={icon} />
      </div>
     </div>
   )

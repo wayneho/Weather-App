@@ -6,7 +6,6 @@ import { capitalizeWords } from '../utils/CapitalizeWords'
 
 const LongTermForecast = ({ unit, forecast }) => (
   <div className={"long-term-forecast"}>
-    <h1>Long Term Forecast</h1>
     <ul className="list-inline">
       {
         forecast.map(f => {

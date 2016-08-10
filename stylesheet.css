@@ -1,15 +1,18 @@
 html * {
   font-family: "Montserrat",Arial, sans-serif !important;
 }
-h1{
+h1, h2, h3, h4{
   margin-top: 0 !important;
   margin-bottom: 20px !important;
 }
 
-.long-term-forecast{
+.forecast-container{
   background-color: rgba(55,90,127, 0.3);
   margin-top: 20px;
   padding: 20px;
+}
+.forecast-container .btn-group{
+  margin-bottom: 20px;
 }
 
 .long-term-forecast li {
@@ -19,13 +22,7 @@ h1{
   margin-bottom: 10px;
 }
 .long-term-forecast li img{
-  width: 100%;
-}
-
-.short-term-forecast{
-  background-color: rgba(55,90,127, 0.3);
-  padding: 20px;
-  margin-top: 20px;
+  width: 75%;
 }
 
 .short-term-forecast li{
@@ -48,17 +45,21 @@ h1{
 .current-weather span{
   display: inline-block;
   vertical-align: top;
-  width: 50%;
+  width: 60%;
 }
 
-.current-weather span>div:first-child{
-  font-size: 72px;
+.current-weather .current-temp{
+  font-size: 150px;
+  line-height: 150px;
+  font-weight: bold;
+  vertical-align: top;
 }
 
 .current-weather img{
-  width: 40%;
+  width: 30%;
   max-width: 200px;
   min-width: 50px;
+
 }
 
 .current-weather .date{

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Grid, Row, Col } from 'react-bootstrap'
+import { Grid, Row, Col, ButtonGroup, Button } from 'react-bootstrap'
 import { getAllData, setLocation, addLocation } from '../actions'
 import { createCantorPair } from '../utils/createCantorPair'
 
@@ -17,6 +17,8 @@ import PhotoOfTheDay from '../components/PhotoOfTheDay'
 class App extends Component {
   constructor(){
     super()
+    this.state = { selectedForecast: 'longTerm' }
+    onButtonClick = this.onButtonClick.bind(this)
   }
 
   getInitialLocation(lat, lon, query){
@@ -26,6 +28,10 @@ class App extends Component {
     dispatch(setLocation(id))
     query = query?query:`${lat},${lon}`
     dispatch(getAllData(id, query))
+  }
+
+  onButtonClick(forecast){
+    this.setState({selectedForecast: forecast})
   }
 
   componentDidMount() {
@@ -48,7 +54,10 @@ class App extends Component {
   }
 
   render(){
-    if(this.props.isFetching)
+    const { isFetching, noLocationSelected } = this.props
+    const { selectedForecast } = this.state
+
+    if(isFetching)
       return (
         <div>
           <Header />
@@ -62,7 +71,7 @@ class App extends Component {
         <div>
           <Header />
           <Grid>
-            {this.props.noLocationSelected
+            {noLocationSelected
               ?<h1>No city selected.</h1>
               :<div>
                 <NavigationBar />
@@ -82,7 +91,21 @@ class App extends Component {
                 </Row>
                 <Row>
                   <Col xs={12} >
-                    <LongTermContainer />
+                    <div className={'forecast-container'}>
+                      <ButtonGroup>
+                        <Button onClick={()=>this.onButtonClick('longTerm')}
+                                bsStyle={selectedForecast==='longTerm'?'info':'default'} >
+                          7 Day Forecast
+                        </Button>
+                        <Button onClick={()=>this.onButtonClick('hourly')}
+                                bsStyle={selectedForecast==='hourly'?'info':'default'} >
+                          Hourly Forecast
+                        </Button>
+                      </ButtonGroup>
+                      {selectedForecast==='longTerm'
+                        ?<LongTermContainer />
+                        :<ShortTermContainer /> }
+                    </div>
                   </Col>
                 </Row>
                 <Row>
