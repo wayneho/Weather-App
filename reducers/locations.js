@@ -4,15 +4,13 @@ import { RECEIVE_CURRENT_WEATHER, RECEIVE_SHORT_FORECAST,
        } from '../constants/ActionTypes'
 
 function currentWeather(state = {
-    temp: {},
-    weather: {}
+    data: {}
   }, action){
   switch(action.type){
     case RECEIVE_CURRENT_WEATHER:
       return {
         ...state,
-        temp: action.temp,
-        weather: action.weather
+        ...action.data
       }
     default:
       return state

@@ -3,9 +3,14 @@ import { convertUnit } from '../utils/ConvertUnit'
 import { capitalizeWords } from '../utils/CapitalizeWords'
 import { extractDate } from '../utils/ExtractDate'
 
-const CurrentWeather = ({ selectedUnit, city, country, currentWeather }) => {
-  const temp = convertUnit(currentWeather.temp, selectedUnit)
-  const { main, description, icon } = currentWeather.weather
+const CurrentWeather = ({ selectedUnit, currentWeather }) => {
+  const { full, country } = currentWeather.display_location
+  const { observation_time, temp_c, temp_f, weather, icon, icon_url } = currentWeather
+
+
+  const temp = selectedUnit.toLowerCase() === 'celsius' ? temp_c : temp_f
+
+/* get current time
   const d = new Date()
   const date = extractDate(d.getTime()/1000)
   
@@ -26,19 +31,19 @@ const CurrentWeather = ({ selectedUnit, city, country, currentWeather }) => {
 
   // format time as (example: 2:23Am Tue, 2 Aug)
   const dateAndTime = `${curr_time} ${date}`
-
+*/
 
   return(
     <div className={'current-weather'}>
-     <div className={"date"}>{dateAndTime}</div>
-     <h1>{city}</h1>
+     <div className={"date"}>{observation_time}</div>
+     <h1>{full}</h1>
      <h2>{country}</h2>
      <div className="text-center">
       <span>
-        <div>{`${temp} °`}</div>
-        <div>{capitalizeWords(description)}</div>
+        <div>{`${Math.round(temp)}°`}</div>
+        <div>{capitalizeWords(weather)}</div>
       </span>
-      <img src={`http://openweathermap.org/img/w/${icon}.png`} alt={main} />
+      <img src={icon_url} alt={icon} />
      </div>
     </div>
   )
@@ -46,17 +51,7 @@ const CurrentWeather = ({ selectedUnit, city, country, currentWeather }) => {
 
 CurrentWeather.proptypes = {
   selectedUnit: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired,
-  country: PropTypes.string.isRequired,
-  currentWeather: PropTypes.shape({
-    temp: PropTypes.number.isRequired,
-    weather: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      main: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      icon: PropTypes.string.isRequired
-    }).isRequired
-  }).isRequired
+  currentWeather: PropTypes.object.isRequired
 }
 
 export default CurrentWeather

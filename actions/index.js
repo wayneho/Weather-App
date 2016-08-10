@@ -14,7 +14,6 @@ import { ADD_LOCATION,
          CLEAR_ERROR_MESSAGE
         } from '../constants/ActionTypes'
 
-
 export function setUnit(unit) {
   return{
     type: SET_UNIT,
@@ -56,113 +55,86 @@ export function clearErrorMessage(){
   }
 }
 
-function requestCurrentWeather(lat, lon){
+function requestCurrentWeather(query){
   return{
     type: REQUEST_CURRENT_WEATHER,
-    lat,
-    lon
+    query
   }
 }
 
-function receiveCurrentWeather(json){
+function receiveCurrentWeather(id, json){
   return{
     type: RECEIVE_CURRENT_WEATHER,
-    id: json.id,
-    temp: json.main.temp,
-    weather: Object.assign({}, ...json.weather),
-    city: json.name,
-    country: json.sys.country
+    id,
+    data: json.current_observation
   }
 }
 
-function receivedAllData(json){
+
+function getCurrentWeather(id, query){
+  return dispatch => {
+    dispatch(requestCurrentWeather(query))
+    return fetchCurrentWeather(query)
+      .then(json => dispatch(receiveCurrentWeather(id, json)))
+  } 
+}
+
+function receivedAllData(id){
   return{
     type: RECEIVED_ALL_DATA,
-    id: json.id,
+    id,
     isFetching: false
   }
 }
 
-// getCurrentWeather checks if the requested location is contained
-// in the openweather api database.
-// if not found dispatches an error message
-// if found it adds the new location to the store
-export function getCurrentWeather(lat, lon){
-  return (dispatch, getState) => {
-    dispatch(requestCurrentWeather(lat, lon))
-    return fetchCurrentWeather(lat, lon)
-      .then(json => {
-        if(json.cod === "404")
-          dispatch(setErrorMessage(json.message))
-        else{
-          const locations = getState().locationsOrder
-          const id = json.id.toString()
-          if(locations.indexOf(id) === -1){
-            // if locations array is empty set the view to the newly added location
-            if(locations.length === 0)
-              dispatch(setLocation(id))
-            Promise.all([
-              dispatch(addLocation(id)),
-              dispatch(receiveCurrentWeather(json)),
-              dispatch(getShortForecast(lat, lon)),
-              dispatch(getLongForecast(lat, lon))
-              ]).then(() => {
-                dispatch(receivedAllData(json))
-              })
-          }
-          else
-            dispatch(setErrorMessage('Duplicate City'))
-        }
-      })
+export function getAllData(id, query){
+  return dispatch => {
+    Promise.all([
+      dispatch(getCurrentWeather(id, query)),
+      dispatch(getShortForecast(id, query)),
+      dispatch(getLongForecast(id, query))
+      ]).then(() => dispatch(receivedAllData(id)))
   }
 }
 
-function requestForecast(){
+function requestForecast(term, query){
   return{
     type: REQUEST_FORECAST,
+    term,
+    query 
   }
 }
 
-function receiveShortForecast(json){
+// receive 12 hour forecast
+function receiveShortForecast(id, json){
   return{
     type: RECEIVE_SHORT_FORECAST,
-    id: json.city.id,
-    shortTerm: json.list.map(data => {
-      return {
-        time: data.dt_txt,
-        temp: data.main.temp,
-        weather: Object.assign({},...data.weather)
-      }
-    })
+    id,
+    shortTerm: json.hourly_forecast.splice(0,12)
   }
 }
 
-function receiveLongForecast(json){
+// receive 7 day forecast
+function receiveLongForecast(id, json){
   return{
     type: RECEIVE_LONG_FORECAST,
-    id: json.city.id,
-    longTerm: json.list.map(data => {
-      return {
-        dt: data.dt,
-        temp: data.temp.day,
-        weather: Object.assign({},...data.weather)
-      }
-    })
+    id,
+    longTerm: json.forecast.simpleforecast.forecastday.splice(0,7)
   }
 }
 
-export function getShortForecast(lat, lon){
+function getShortForecast(id, query){
   return dispatch => {
-    dispatch(requestForecast())
-    return fetchShortForecast(lat, lon)
-      .then(json => dispatch(receiveShortForecast(json)))
+    dispatch(requestForecast("short term", query))
+    return fetchShortForecast(query)
+      .then(json => dispatch(receiveShortForecast(id,json)))
   }
 }
 
-export function getLongForecast(lat, lon){
+function getLongForecast(id, query){
   return dispatch => {
-    dispatch(requestForecast())
-    return fetchLongForecast(lat, lon)
-      .then(json => dispatch(receiveLongForecast(json)))
+    dispatch(requestForecast("long term", query))
+    return fetchLongForecast(query)
+      .then(json => dispatch(receiveLongForecast(id,json)))
   }
 }

@@ -31,7 +31,7 @@ class NavigationBarItem extends Component {
     const { dispatch, selectedLocation, locations } = this.props
     
     // if the current viewed city is being removed
-    // set the current weather view to one of the added cities
+    // set the current weather view to one of the other cities
     if(selectedLocation === id){
       const ind = locations.indexOf(id)
       if(locations[ind+1])
@@ -47,14 +47,13 @@ class NavigationBarItem extends Component {
   render(){
     const {id, city, country, temp } = this.props
     return(
-      <div 
+      <div
         onMouseOver={this.onMouseOver}
-        onMouseOut={this.onMouseOut} 
-      >
+        onMouseOut={this.onMouseOut} >
         <div
           className={'nav-item-content'}
           onClick={()=>{this.onClick(id)}}>
-          {`${city}, ${country} - ${temp} °`}
+          {`${city}, ${country} - ${Math.round(temp)}°`}
         </div>
         <div 
           className={this.state.showDeleteButton?"circle visible":"circle"}
@@ -69,11 +68,12 @@ class NavigationBarItem extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const id = ownProps.id
+  const { temp_f, temp_c } = state.locations[id].currentWeather
   return{
     id: id,
-    temp: convertUnit(state.locations[id].currentWeather.temp, state.selectedUnit),
-    city: state.locations[id].city,
-    country: state.locations[id].country,
+    temp: state.selectedUnit==='celsius'?temp_c:temp_f,
+    city: state.locations[id].currentWeather.display_location.city,
+    country: state.locations[id].currentWeather.display_location.country,
     selectedLocation: state.selectedLocation,
     locations: state.locationsOrder
   }

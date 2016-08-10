@@ -1,41 +1,103 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap'
-import { getCurrentWeather, setErrorMessage, clearErrorMessage } from '../actions'
-import GeoSuggest from 'react-geosuggest'
+import { addLocation, getAllData, setErrorMessage, clearErrorMessage } from '../actions'
+import { fetchListOfCities } from '../api/weather'
+import { createCantorPair } from '../utils/createCantorPair'
+import { isDuplicateCityId } from '../utils/isDuplicateCityId'
+import Autosuggest from 'react-autosuggest'
+
+function getSuggestionValue(suggestion){
+  return suggestion.name
+}
+
+function renderSuggestion(suggestion){
+  return (
+    <span>{suggestion.name}</span>
+  )
+}
 
 class AddLocationForm extends Component{
   constructor(){
     super()
-    this.state = {isCitySelected: false, city: ''}
-    this.onSuggestSelect = this.onSuggestSelect.bind(this)
-    this.onFocus = this.onFocus.bind(this)
+    this.state = { selectedCity: '',
+                   isLoading: false,
+                   value:'',
+                   suggestions: [] }
+    this.onChange = this.onChange.bind(this)
+    this.onSuggestionsUpdateRequested = this.onSuggestionsUpdateRequested.bind(this)
+    this.onSuggestionSelected = this.onSuggestionSelected.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.removeErrorMessage = this.removeErrorMessage.bind(this)
   }
 
-  onSuggestSelect(suggest){
+  loadSuggestions(value){
+    this.setState({
+      isLoading: true
+    })
+
+    const inputValue = value.trim().toLowerCase()
+
+    fetchListOfCities(inputValue)
+      .then(json => {
+        const suggestions = json.RESULTS.filter(ind => {
+          return ind.type === 'city'
+        }).slice(0,8)
+        if(inputValue === this.state.value){
+          this.setState({
+            isLoading: false,
+            suggestions
+          })
+        }else{ // Ignore suggestions if input value changed
+          this.setState({isLoading: false})
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  onChange(e, { newValue }){
+    this.setState({value: newValue, selectedCity: ''})
+  }
+
+  onSuggestionsUpdateRequested({ value }){
+    this.loadSuggestions(value)
+  }
+
+  onSuggestionSelected(event, {suggestion}){
     const { dispatch, errorMessage } = this.props
-    this.setState({city: suggest, isCitySelected: true})
-    
+    this.setState({selectedCity: suggestion})
+
     if(errorMessage.length>0)
       dispatch(clearErrorMessage())
-  }
+  } 
+
   onFocus(){
-    this.setState({isCitySelected: false})
+    this.setState({selectedCity: ''})
   }
 
+  // Force users to select a city from the drop down list
+  // Check for duplicate city
   handleSubmit(e){
     e.preventDefault()
-    const { dispatch } = this.props
+    const { dispatch, locationsList } = this.props
+    const { selectedCity } = this.state
 
-    if(this.state.isCitySelected === false){
+    if(selectedCity.length===0){
       dispatch(setErrorMessage('Please select a city from the drop down list'))
     }
     else{
-      this.setState({isCitySelected: false})
-      this.refs.searchCityInput.clear()
-      dispatch(getCurrentWeather(this.state.city.location.lat, this.state.city.location.lng))
+      console.log(selectedCity)
+      const id = createCantorPair(parseInt(selectedCity.lat,10), parseInt(selectedCity.lon,10))
+      console.log(id)
+      if(isDuplicateCityId(locationsList, id)){
+        dispatch(setErrorMessage('City already added'))
+      }else{
+        dispatch(addLocation(id))
+        dispatch(getAllData(id, selectedCity.name))
+        this.setState({selectedCity: '', value: ''})
+      }
     }
   }
 
@@ -45,19 +107,24 @@ class AddLocationForm extends Component{
   }
 
   render(){
+    const { value, suggestions, isLoading } = this.state
+    const inputProps = {
+      placeholder: 'Enter a city',
+      value,
+      onChange: this.onChange
+    }
     let errorMessage = this.props.errorMessage
     return(
       <Form onSubmit={this.handleSubmit} className="navbar-form">
-        <GeoSuggest
-          ref="searchCityInput"
-          placeholder="City Name"
-          onSuggestSelect={this.onSuggestSelect}
-          onFocus={this.onFocus}
-          types={['(cities)']} 
-        />
+        <Autosuggest suggestions={suggestions}
+                     onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
+                     onSuggestionSelected={this.onSuggestionSelected}
+                     getSuggestionValue={getSuggestionValue}
+                     renderSuggestion={renderSuggestion}
+                     inputProps={inputProps} />
         {' '}
         <Button type="submit" bsSize="small">Add</Button>
-        <div style={{color: 'red'}} onClick={this.removeErrorMessage}>{errorMessage}</div>
+        <div style={{color: 'red', marginTop: '5px'}} onClick={this.removeErrorMessage}>{errorMessage}</div>
       </Form>
     )
   }
@@ -65,7 +132,8 @@ class AddLocationForm extends Component{
 
 const mapStateToProps = (state) => {
   return{
-    errorMessage: state.errorMessage
+    errorMessage: state.errorMessage,
+    locationsList: state.locationsOrder
   }
 }
 

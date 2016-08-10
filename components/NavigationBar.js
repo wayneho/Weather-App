@@ -12,12 +12,11 @@ const NavigationBar = ({ selectedLocation, locations, locationsOrder }) => (
         return (
           <NavItem
             eventKey={id}
-            title={locations[id].city} 
+            title={locations[id].currentWeather.display_location.full} 
             key={id}
             className={"nav-item-wrapper"} >
             <NavigationBarItem id={id} />
-          </NavItem>
-        )
+          </NavItem> )
     })}
   </Nav>
 )

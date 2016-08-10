@@ -10,12 +10,16 @@ const LongTermForecast = ({ unit, forecast }) => (
     <ul className="list-inline">
       {
         forecast.map(f => {
+          const { epoch, day, monthname_short, weekday_short } = f.date
+          const { high, low, conditions, icon, icon_url } = f
+          const temp = unit.toLowerCase() === 'celsius' ? high.celsius : high.fahrenheit
           return (
-            <li key={f.dt} className={"text-center long-forecast-list"}>
-              <div>{extractDate(f.dt)}</div>
-              <div><img src={`http://openweathermap.org/img/w/${f.weather.icon}.png`} alt={f.weather.main} /></div>
-              <div>{capitalizeWords(f.weather.description)}</div>
-              <div>{`${convertUnit(f.temp, unit)} °`}</div>
+            <li key={epoch} className={"text-center long-forecast-list"}>
+              <div>{weekday_short}</div>
+              <div>{monthname_short} {day}</div>
+              <div><img src={icon_url} alt={icon} /></div>
+              <div>{capitalizeWords(conditions)}</div>
+              <div>{`${temp}°`}</div>
             </li>
           )
         })

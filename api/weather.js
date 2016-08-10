@@ -1,10 +1,12 @@
 require('es6-promise').polyfill()
 require('isomorphic-fetch')
+import fetchJsonp from 'fetch-jsonp'
 
 const appid = '28b73c0cb0782e8fc676faa500c47734'
+const key = 'ad517eccccdeddd4'
 
-export function fetchCurrentWeather(lat, lon){
-  return fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appid}`)
+export function fetchCurrentWeather(query){
+  return fetch(`https://api.wunderground.com/api/${key}/conditions/q/${query}.json`)
     .then(res => {
       if(res.status >= 400)
         console.log("Error retrieving current weather")
@@ -12,8 +14,8 @@ export function fetchCurrentWeather(lat, lon){
     })
 }
 
-export function fetchShortForecast(lat, lon){
-  return fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=8&appid=${appid}`)
+export function fetchShortForecast(query){
+  return fetch(`https://api.wunderground.com/api/${key}/hourly/q/${query}.json`)
     .then(res => {
       if(res.status >= 400)
         console.log("Error retrieving short term forecast")
@@ -21,11 +23,20 @@ export function fetchShortForecast(lat, lon){
     })
 }
 
-export function fetchLongForecast(lat, lon){
-  return fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=7&appid=${appid}`)
+export function fetchLongForecast(query){
+  return fetch(`https://api.wunderground.com/api/${key}/forecast10day/q/${query}.json`)
     .then(res => {
       if(res.status >= 400)
         console.log("Error retrieving long term forecast")
+      return res.json()
+    })
+}
+
+export function fetchListOfCities(query){
+   return fetchJsonp(`http://autocomplete.wunderground.com/aq?query=${query}`, {jsonpCallback: 'cb'})
+    .then(res => {
+      if(res.status >= 400)
+        console.log("Error retrieving list of cities")
       return res.json()
     })
 }

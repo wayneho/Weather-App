@@ -22,6 +22,7 @@ const Header = () => (
         </ButtonGroup>
       </Navbar.Form>
     </Navbar.Collapse>
+    
   </Navbar>
 )
 
