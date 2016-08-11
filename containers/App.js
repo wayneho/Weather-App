@@ -18,7 +18,7 @@ class App extends Component {
   constructor(){
     super()
     this.state = { selectedForecast: 'longTerm' }
-    onButtonClick = this.onButtonClick.bind(this)
+    this.onButtonClick = this.onButtonClick.bind(this)
   }
 
   getInitialLocation(lat, lon, query){

@@ -5,7 +5,7 @@ import ButtonWrapper from '../components/ButtonWrapper'
 const mapStateToProps = (state, ownProps) => {
   let style = 'default'
   if(ownProps.unit === state.selectedUnit)
-    style = 'success'
+    style = 'info'
   return {
     style
   }

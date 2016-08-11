@@ -115,7 +115,7 @@ class AddLocationForm extends Component{
     }
     let errorMessage = this.props.errorMessage
     return(
-      <Form onSubmit={this.handleSubmit} className="navbar-form">
+      <Form onSubmit={this.handleSubmit}>
         <Autosuggest suggestions={suggestions}
                      onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
                      onSuggestionSelected={this.onSuggestionSelected}
@@ -124,7 +124,7 @@ class AddLocationForm extends Component{
                      inputProps={inputProps} />
         {' '}
         <Button type="submit" bsSize="small">Add</Button>
-        <div style={{color: 'red', marginTop: '5px'}} onClick={this.removeErrorMessage}>{errorMessage}</div>
+        <p style={{color: 'red', lineHeight: '15px'}} onClick={this.removeErrorMessage}>{errorMessage}</p>
       </Form>
     )
   }

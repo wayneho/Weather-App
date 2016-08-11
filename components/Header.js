@@ -5,6 +5,7 @@ import AddLocationForm from './AddLocationForm'
 
 const Header = () => (
   <Navbar>
+  <div className={'header'}>
     <Navbar.Header>
       <Navbar.Brand>
         <a href="#">Wayne's Weather App</a>
@@ -12,17 +13,17 @@ const Header = () => (
       <Navbar.Toggle />
     </Navbar.Header>
     <Navbar.Collapse>
-      <Navbar.Form pullRight>
+      <Nav pullRight>
         <AddLocationForm />
-      </Navbar.Form>
-      <Navbar.Form pullRight>
+      </Nav>
+      <Nav pullRight>
         <ButtonGroup bsSize="small" className="navbar-btn">
           <UnitButtonsContainer unit="celsius">Celsius</UnitButtonsContainer>
-          <UnitButtonsContainer unit="farenheit">Farenheit</UnitButtonsContainer>          
+          <UnitButtonsContainer unit="farenheit">Fahrenheit</UnitButtonsContainer>          
         </ButtonGroup>
-      </Navbar.Form>
+      </Nav>
     </Navbar.Collapse>
-    
+    </div>
   </Navbar>
 )
 

@@ -30,7 +30,7 @@ class PhotoOfTheDay extends Component{
     const { isLoading, url, title } = this.state
     return (
       <div className="photo-of-the-day-container">
-        <h3>Photo of the Day</h3>
+        <h3 style={{color: '#a5d6ff'}}>Photo of the Day</h3>
         {isLoading
           ?<Spinner />
           :<div className='photo-wrapper'>
