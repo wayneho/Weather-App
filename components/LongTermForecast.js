@@ -26,7 +26,7 @@ class LongTermForecast extends Component{
     const { windowWidth } = this.state
     const u = unit.toLowerCase()==='celsius'?'celsius':'fahrenheit'
 
-    return windowWidth >= 768 
+    return windowWidth >= 990
       ? <Table className={"text-center table-vertical"}>
           <thead>
             <tr>
@@ -56,9 +56,9 @@ class LongTermForecast extends Component{
               })}
             </tr>
             <tr>
-              <td>Condition</td>
+              <td >Condition</td>
               {forecast.map((f,i) => {
-                return <td key={i}>{f.conditions}</td>
+                return <td className={"conditions"} key={i}>{f.conditions}</td>
               })}
             </tr>
             <tr>

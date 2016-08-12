@@ -35,7 +35,7 @@ class AddLocationForm extends Component{
     this.setState({
       isLoading: true
     })
-
+    const { dispatch } = this.props
     const inputValue = value.trim().toLowerCase()
 
     fetchListOfCities(inputValue)
@@ -54,6 +54,7 @@ class AddLocationForm extends Component{
       })
       .catch(err => {
         console.log(err)
+        dispatch(setErrorMessage(err))
       })
   }
 

@@ -8,7 +8,6 @@ h1, h2, h3, h4{
 
 body{
   background-image: url("./images/sky.jpg");
-  background-repeat: no-repeat;
   background-attachment: fixed;
   color: white;
   padding-top: 90px;
@@ -285,6 +284,11 @@ table{
 .table-vertical td{
   border-right: 1px solid #798d8f !important;
 }
+
+.table-vertical .conditions{
+  font-size: 11px;
+}
+
 .table-vertical td:last-child{
   border-right: 0!important;
 }
@@ -331,4 +335,24 @@ table{
 }
 .line-legend>li:last-child{
   color: rgba(65,105,225,1);
+}
+.select-hourly-forecast-view{
+  display: flex;
+  justify-content: flex-end;
+  color: lightgrey;
+}
+.select-hourly-forecast-view> li{
+  display: inline;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.select-hourly-forecast-view> li:hover{
+  border-bottom: 3px solid blue;
+  color: white;
+}
+
+.active-view{
+  border-bottom: 3px solid blue;
+  color: white;
 }

@@ -26,7 +26,7 @@ const CurrentWeather = ({ selectedUnit, currentWeather }) => {
   const { full, country } = currentWeather.display_location
   const { observation_time, temp_c, temp_f, weather, 
     icon, icon_url, relative_humidity, wind_string, wind_dir,
-    wind_kph, precip_today_string } = currentWeather
+    wind_kph, precip_1hr_metric } = currentWeather
 
   let temp = selectedUnit.toLowerCase() === 'celsius' ? temp_c : temp_f
   temp = Math.round(temp)
@@ -42,7 +42,7 @@ const CurrentWeather = ({ selectedUnit, currentWeather }) => {
       <div className={"img-wrapper"}>
         <img src={icon_url} alt={icon} />
         <div className="other-weather-info" style={{color: '#a5d6ff'}}>
-          <div>Precipitation: {precip_today_string}</div>
+          <div>Precipitation: {precip_1hr_metric} mm</div>
           <div>Humidity: {relative_humidity}</div>
           <div>Wind: {wind_kph} km/h {wind_dir}</div>
         </div>
