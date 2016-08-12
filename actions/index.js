@@ -1,4 +1,4 @@
-import { fetchCurrentWeather, fetchShortForecast, fetchLongForecast } from '../api/weather'
+import { fetchCurrentWeather, fetchShortForecast, fetchLongForecast, fetchPOTD } from '../api/weather'
 import { ADD_LOCATION,
          REMOVE_LOCATION,
          SET_UNIT,
@@ -11,7 +11,8 @@ import { ADD_LOCATION,
          CITY_NOT_FOUND,
          RECEIVED_ALL_DATA,
          SET_ERROR_MESSAGE,
-         CLEAR_ERROR_MESSAGE
+         CLEAR_ERROR_MESSAGE,
+         RECEIVE_POTD
         } from '../constants/ActionTypes'
 
 export function setUnit(unit) {
@@ -136,5 +137,20 @@ function getLongForecast(id, query){
     dispatch(requestForecast("long term", query))
     return fetchLongForecast(query)
       .then(json => dispatch(receiveLongForecast(id,json)))
+  }
+}
+
+function receivePOTD(json){
+  return {
+    type: RECEIVE_POTD,
+    json
+  }
+}
+
+// get photo of the day
+export function getPOTD(){
+  return dispatch => {
+    return fetchPOTD()
+      .then(json => dispatch(receivePOTD(json)))
   }
 }

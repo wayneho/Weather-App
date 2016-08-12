@@ -11,9 +11,8 @@ body{
   background-repeat: no-repeat;
   background-attachment: fixed;
   color: white;
+  padding-top: 90px;
 }
-
-
 
 .header .nav{
   line-height: 60px;
@@ -202,6 +201,11 @@ body{
   display: initial;
 }
 
+.nav-item-wrapper{
+  background-color: rgba(44, 62, 80, 0.2);
+  border-radius: 4px;
+}
+
 .nav-item-wrapper>a{
   color: #2c3e50;
 }
@@ -259,6 +263,7 @@ td:last-child{
 }
 th{
   border-right: 1px solid #798d8f !important;
+  color: #a5d6ff;
 }
 th:last-child{
   border-right: 0!important;

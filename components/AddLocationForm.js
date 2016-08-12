@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap'
-import { addLocation, getAllData, setErrorMessage, clearErrorMessage } from '../actions'
+import { addLocation, getAllData, setErrorMessage, clearErrorMessage, setLocation } from '../actions'
 import { fetchListOfCities } from '../api/weather'
 import { createCantorPair } from '../utils/createCantorPair'
 import { isDuplicateCityId } from '../utils/isDuplicateCityId'
@@ -89,13 +89,15 @@ class AddLocationForm extends Component{
     }
     else{
       console.log(selectedCity)
-      const id = createCantorPair(parseInt(selectedCity.lat,10), parseInt(selectedCity.lon,10))
+      const id = createCantorPair(parseFloat(selectedCity.lat), parseFloat(selectedCity.lon))
       console.log(id)
       if(isDuplicateCityId(locationsList, id)){
         dispatch(setErrorMessage('City already added'))
       }else{
         dispatch(addLocation(id))
         dispatch(getAllData(id, selectedCity.name))
+        if(locationsList.length === 0)
+          dispatch(setLocation(id))
         this.setState({selectedCity: '', value: ''})
       }
     }

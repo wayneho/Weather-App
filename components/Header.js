@@ -4,7 +4,7 @@ import { Navbar, Nav, NavItem, Button, ButtonGroup, FormGroup, FormControl} from
 import AddLocationForm from './AddLocationForm'
 
 const Header = () => (
-  <Navbar>
+  <Navbar className={'navbar-fixed-top'}>
   <div className={'header'}>
     <Navbar.Header>
       <Navbar.Brand>

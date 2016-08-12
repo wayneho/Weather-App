@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Grid, Row, Col, ButtonGroup, Button } from 'react-bootstrap'
-import { getAllData, setLocation, addLocation } from '../actions'
+import { getAllData, setLocation, addLocation, getPOTD } from '../actions'
 import { createCantorPair } from '../utils/createCantorPair'
 
 import Header from '../components/Header'
@@ -35,10 +35,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // Vancouver, BC coordinates
-    const coords = {lat: 49.2827, lon: -123.1207}
     const { dispatch } = this.props
     
+    // Vancouver, BC coordinates
+    const coords = {lat: 49.2827, lon: -123.1207}
     
     if ("geolocation" in navigator) {
       // geolocation is available 
@@ -51,6 +51,8 @@ class App extends Component {
       // geolocation IS NOT available
       this.getInitialLocation(coords.lat, coords.lon, 'vancouver, canada')
     }
+ 
+    dispatch(getPOTD())
   }
 
   render(){

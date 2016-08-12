@@ -40,3 +40,12 @@ export function fetchListOfCities(query){
       return res.json()
     })
 }
+
+export function fetchPOTD(){
+  return fetch('https://api.nasa.gov/planetary/apod?api_key=cmZiEwrhdUIKKzic9Bt8eVD3rHJ4kYRVjqoUWSWW')
+    .then(res => {
+      if(res.status >= 400)
+        console.log("Error retrieving photo of the day")
+      return res.json()
+    })
+}

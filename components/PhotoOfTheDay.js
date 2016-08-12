@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import 'isomorphic-fetch'
 import Spinner from 'react-spinner'
 
@@ -7,31 +8,14 @@ const key = 'cmZiEwrhdUIKKzic9Bt8eVD3rHJ4kYRVjqoUWSWW'
 class PhotoOfTheDay extends Component{
   constructor(){
     super()
-    this.state = { isLoading: true,
-                   url: '',
-                   title: '' }
-  }
-  componentDidMount(){
-    fetch('https://api.nasa.gov/planetary/apod?api_key='+key)
-      .then(res => {
-        return res.json() 
-      })
-      .then(json => {
-        this.setState({ isLoading: false,
-                        url: json.url,
-                        title: json.title})
-      })
-      .catch(er => {
-        console.log(er)
-      })
   }
 
   render(){
-    const { isLoading, url, title } = this.state
+    const { url, title } = this.props
     return (
       <div className="photo-of-the-day-container">
         <h3 style={{color: '#a5d6ff'}}>Photo of the Day</h3>
-        {isLoading
+        {!url
           ?<Spinner />
           :<div className='photo-wrapper'>
             <img src={url} />
@@ -43,4 +27,11 @@ class PhotoOfTheDay extends Component{
   }
 }
 
-export default PhotoOfTheDay
+const mapStateToProps = (state) => {
+  return{
+    url: state.photoOfTheDay.url,
+    title: state.photoOfTheDay.title
+  }
+}
+
+export default connect(mapStateToProps)(PhotoOfTheDay)
