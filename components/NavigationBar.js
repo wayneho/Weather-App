@@ -2,8 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Nav, NavItem } from 'react-bootstrap'
 import NavigationBarItem from './NavigationBarItem'
-import { convertUnit } from '../utils/ConvertUnit'
-import { capitalizeWords } from '../utils/CapitalizeWords'
+import capitalizeWords from '../utils/CapitalizeWords'
 
 const NavigationBar = ({ selectedLocation, locations, locationsOrder }) => (
   <Nav bsStyle="pills" activeKey={selectedLocation}>

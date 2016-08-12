@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Grid, Row, Col, ButtonGroup, Button } from 'react-bootstrap'
 import { getAllData, setLocation, addLocation, getPOTD } from '../actions'
-import { createCantorPair } from '../utils/createCantorPair'
+import createCantorPair from '../utils/createCantorPair'
 
 import Header from '../components/Header'
 import NavigationBar from '../components/NavigationBar'

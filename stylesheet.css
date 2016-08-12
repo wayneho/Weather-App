@@ -83,20 +83,27 @@ body{
 }
 
 .current-weather .img-wrapper{
-  width: 30%;
   display: inline-block;
   vertical-align: top;
+  text-align: center;
+  height: 100%;
 }
 
 .current-weather img{
   width: 100%;
-  max-width: 200px;
+  max-width: 100px;
   min-width: 50px;
 }
 
 .current-weather .date{
   font-size: 14px;
   margin-bottom: 10px;
+}
+
+.other-weather-info {
+  text-align: left;
+  font-size: 12px;
+  padding-top: 20px;
 }
 
 .react-autosuggest__container {
@@ -249,6 +256,7 @@ body{
 .photo-credits{
   margin-top: 2px;
   font-size: 12px;
+  color: white;
 }
 
 .photo-info-wrapper{
@@ -257,8 +265,8 @@ body{
 }
 
 .hourly-forecast-table-container{
+  margin-top: 20px;
   overflow-x: auto;
-
 }
 .hourly-forecast-table-container>.table{
   min-width: 900px !important;
@@ -266,13 +274,13 @@ body{
 
 table{
   table-layout: fixed;
+  color: #a5d6ff;
 }
 
 .table-vertical tr>td:first-child{
   font-size: 12px;
   font-weight: bold;
   padding-right: 20px !important;
-  color: #a5d6ff;
 }
 .table-vertical td{
   border-right: 1px solid #798d8f !important;
@@ -282,7 +290,6 @@ table{
 }
 .table-vertical th{
   border-right: 1px solid #798d8f !important;
-  color: #a5d6ff;
   text-align: center;
 }
 .table-vertical th:last-child{
@@ -297,6 +304,13 @@ table{
   text-align: center;
   color: #a5d6ff;
   padding-bottom: 20px !important;
+}
+
+
+.line-chart-legend{
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end
 }
 
 .line-legend{

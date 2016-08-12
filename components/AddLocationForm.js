@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap'
 import { addLocation, getAllData, setErrorMessage, clearErrorMessage, setLocation } from '../actions'
 import { fetchListOfCities } from '../api/weather'
-import { createCantorPair } from '../utils/createCantorPair'
-import { isDuplicateCityId } from '../utils/isDuplicateCityId'
+import createCantorPair from '../utils/createCantorPair'
+import isDuplicateCityId from '../utils/isDuplicateCityId'
 import Autosuggest from 'react-autosuggest'
 
 function getSuggestionValue(suggestion){

@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { ListGroup, ListGroupItem, Table } from 'react-bootstrap'
-import { convertUnit } from '../utils/ConvertUnit'
-import { extractDate } from '../utils/ExtractDate'
-import { capitalizeWords } from '../utils/CapitalizeWords'
+import capitalizeWords from '../utils/CapitalizeWords'
 
 
 class LongTermForecast extends Component{
@@ -85,7 +83,7 @@ class LongTermForecast extends Component{
             {forecast.map((f,i) => {
               return(
                 <tr key={i}>
-                  <td style={{verticalAlign: 'middle'}}>{f.date.weekday_short}, {f.date.monthname_short} {f.date.day}</td>
+                  <td style={{verticalAlign: 'middle'}}>{f.date.weekday_short}<br />{f.date.monthname_short} {f.date.day}</td>
                   <td style={{verticalAlign: 'middle'}}><img src={f.icon_url} alt={f.icon} /></td>
                   <td style={{verticalAlign: 'middle'}}>{f.high[u]}°</td>
                   <td style={{verticalAlign: 'middle'}}>{f.low[u]}°</td>

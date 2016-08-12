@@ -13,8 +13,8 @@ class PhotoOfTheDay extends Component{
   render(){
     const { url, title, copyright } = this.props
     return (
-      <div className="photo-of-the-day-container">
-        <h3 style={{color: '#a5d6ff'}}>Photo of the Day</h3>
+      <div className="photo-of-the-day-container" style={{color: '#a5d6ff'}}>
+        <h3>Photo of the Day</h3>
         {!url
           ?<Spinner />
           :<div className='photo-wrapper'>

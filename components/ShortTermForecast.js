@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import { ListGroup, ListGroupItem, Table, Tabs, Tab } from 'react-bootstrap'
-import { convertUnit } from '../utils/ConvertUnit'
 import { Line } from 'react-chartjs'
 
 class ShortTermForecast extends Component{
@@ -76,8 +75,8 @@ class ShortTermForecast extends Component{
         <Tabs activeKey={this.state.display} onSelect={this.handleSelect} id="controlled-tab">
           <Tab eventKey={'graph'} title="Graph">
             <div>
+              <div className={'line-chart-legend'} dangerouslySetInnerHTML={{__html: legend}} />
               <Line ref="chart" data={lineData} options={lineOptions}/>
-              <div dangerouslySetInnerHTML={{__html: legend}} />
             </div>
           </Tab>
           <Tab eventKey={'table'} title="Table">

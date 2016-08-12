@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { NavItem } from 'react-bootstrap'
 import { setLocation, removeLocation } from '../actions'
-import { convertUnit } from '../utils/ConvertUnit'
 
 class NavigationBarItem extends Component {
   constructor(){
