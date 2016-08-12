@@ -4,8 +4,6 @@ import { ListGroup, ListGroupItem, Table, Tabs, Tab } from 'react-bootstrap'
 import { convertUnit } from '../utils/ConvertUnit'
 import { Line } from 'react-chartjs'
 
-
-
 class ShortTermForecast extends Component{
   constructor(){
     super()
@@ -27,15 +25,19 @@ class ShortTermForecast extends Component{
 
   render(){
     const { unit, forecast } = this.props
+    const u = unit.toLowerCase()==='celsius'?'metric':'english'
+    
+    // generate legend for chart
     const legend = this.state && this.state.legend || ''
+
+    //variables to construct line chart
     const labels = forecast.map(f=> {
       const time = f.FCTTIME.civil.split(':')[0]
       const ampm = f.FCTTIME.ampm
       return `${time} ${ampm}`
     })
     const tempData = forecast.map(hour => {
-      const temp = unit.toLowerCase()==='celsius'?hour.temp.metric:hour.temp.english
-      return parseInt(temp, 10)
+      return parseInt(hour.temp[u], 10)
     })
     const popData = forecast.map(f => {
       return f.pop
@@ -71,51 +73,52 @@ class ShortTermForecast extends Component{
 
     return(
       <div>
-      <Tabs activeKey={this.state.display} onSelect={this.handleSelect} id="controlled-tab">
-        <Tab eventKey={'graph'} title="Graph">
-          <div>
-            <Line ref="chart" data={lineData} options={lineOptions}/>
-            <div dangerouslySetInnerHTML={{__html: legend}} />
-          </div>
-        </Tab>
-        <Tab eventKey={'table'} title="Table">
-          <Table className={"text-center"}>
-            <thead>
-              <tr>
-                <th></th>
-                {forecast.map((f,i) => {
-                  const time = f.FCTTIME.civil.split(':')[0]
-                  const ampm = f.FCTTIME.ampm
-                  return <th key={i} className={"text-center"}>{time} {ampm}</th>
-                })}
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-                {forecast.map((f,i) => {
-                  return <td key={i}><img src={f.icon_url} alt={f.icon}/></td>
-                })}
-              </tr>
-              <tr>
-                <td>Temp</td>
-                {tempData.map(((t,i)=>{return <td key={i}>{t}°</td>}))}
-              </tr>
-              <tr>
-                <td>Feels like</td>
-                {forecast.map((f,i) => {
-                  const displayTemp = unit.toLowerCase()==='celsius'?f.feelslike.metric:f.feelslike.english
-                  return <td key={i}>{displayTemp}°</td>
-                })}
-              </tr>
-              <tr>
-                <td>POP</td>
-                {popData.map((p,i)=>{return <td key={i}>{p}%</td>})}
-              </tr>
-            </tbody>
-          </Table>
-        </Tab>
-      </Tabs>
+        <Tabs activeKey={this.state.display} onSelect={this.handleSelect} id="controlled-tab">
+          <Tab eventKey={'graph'} title="Graph">
+            <div>
+              <Line ref="chart" data={lineData} options={lineOptions}/>
+              <div dangerouslySetInnerHTML={{__html: legend}} />
+            </div>
+          </Tab>
+          <Tab eventKey={'table'} title="Table">
+            <div className={'hourly-forecast-table-container'}>
+              <Table className={"text-center table-vertical"}>
+                <thead>
+                  <tr>
+                    <th></th>
+                    {forecast.map((f,i) => {
+                      const time = f.FCTTIME.civil.split(':')[0]
+                      const ampm = f.FCTTIME.ampm
+                      return <th key={i}>{time} {ampm}</th>
+                    })}
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    {forecast.map((f,i) => {
+                      return <td key={i}><img src={f.icon_url} alt={f.icon}/></td>
+                    })}
+                  </tr>
+                  <tr>
+                    <td>Temp</td>
+                    {tempData.map(((t,i)=>{return <td key={i}>{t}°</td>}))}
+                  </tr>
+                  <tr>
+                    <td>Feels like</td>
+                    {forecast.map((f,i) => {
+                      return <td key={i}>{f.feelslike[u]}°</td>
+                    })}
+                  </tr>
+                  <tr>
+                    <td>POP</td>
+                    {popData.map((p,i)=>{return <td key={i}>{p}%</td>})}
+                  </tr>
+                </tbody>
+              </Table>
+            </div>
+          </Tab>
+        </Tabs>
       </div>
     )
   }

@@ -242,31 +242,61 @@ body{
 
 .photo-title{
   margin-top: 5px;
+  font-size: 18px;
   font-weight: bold;
+}
+
+.photo-credits{
+  margin-top: 2px;
+  font-size: 12px;
+}
+
+.photo-info-wrapper{
+  display: flex;
+  justify-content: space-between
+}
+
+.hourly-forecast-table-container{
+  overflow-x: auto;
+
+}
+.hourly-forecast-table-container>.table{
+  min-width: 900px !important;
 }
 
 table{
   table-layout: fixed;
 }
 
-tr>td:first-child{
+.table-vertical tr>td:first-child{
   font-size: 12px;
   font-weight: bold;
   padding-right: 20px !important;
   color: #a5d6ff;
 }
-td{
+.table-vertical td{
   border-right: 1px solid #798d8f !important;
 }
-td:last-child{
+.table-vertical td:last-child{
   border-right: 0!important;
 }
-th{
+.table-vertical th{
   border-right: 1px solid #798d8f !important;
   color: #a5d6ff;
+  text-align: center;
 }
-th:last-child{
+.table-vertical th:last-child{
   border-right: 0!important;
+}
+
+.table-horizontal td{
+  border-top: 1px solid #798d8f !important;
+}
+
+.table-horizontal thead th{
+  text-align: center;
+  color: #a5d6ff;
+  padding-bottom: 20px !important;
 }
 
 .line-legend{

@@ -87,7 +87,7 @@ class App extends Component {
                       </a>
                     </div>
                   </Col>
-                  <Col xs={12} md={7} >
+                  <Col xs={12} md={7} className='hidden-sm hidden-xs'>
                     <PhotoOfTheDay />
                   </Col>
                 </Row>
@@ -108,6 +108,11 @@ class App extends Component {
                         ?<LongTermContainer />
                         :<ShortTermContainer /> }
                     </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12} className='hidden-md hidden-lg'>
+                    <PhotoOfTheDay />
                   </Col>
                 </Row>
                 <Row>

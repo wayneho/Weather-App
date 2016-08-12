@@ -11,7 +11,7 @@ class PhotoOfTheDay extends Component{
   }
 
   render(){
-    const { url, title } = this.props
+    const { url, title, copyright } = this.props
     return (
       <div className="photo-of-the-day-container">
         <h3 style={{color: '#a5d6ff'}}>Photo of the Day</h3>
@@ -19,7 +19,10 @@ class PhotoOfTheDay extends Component{
           ?<Spinner />
           :<div className='photo-wrapper'>
             <img src={url} />
-            <div className="photo-title">{title}</div>
+            <div className='photo-info-wrapper'>
+              <div className="photo-title">{title}</div>
+              <div className="photo-credits">Image Credits: {copyright}</div>
+            </div>
           </div>
         }
       </div>
@@ -30,7 +33,8 @@ class PhotoOfTheDay extends Component{
 const mapStateToProps = (state) => {
   return{
     url: state.photoOfTheDay.url,
-    title: state.photoOfTheDay.title
+    title: state.photoOfTheDay.title,
+    copyright: state.photoOfTheDay.copyright
   }
 }
 
