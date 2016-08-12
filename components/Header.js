@@ -19,7 +19,7 @@ const Header = () => (
       <Nav pullRight>
         <ButtonGroup bsSize="small" className="navbar-btn">
           <UnitButtonsContainer unit="celsius">Celsius</UnitButtonsContainer>
-          <UnitButtonsContainer unit="farenheit">Fahrenheit</UnitButtonsContainer>          
+          <UnitButtonsContainer unit="fahrenheit">Fahrenheit</UnitButtonsContainer>          
         </ButtonGroup>
       </Nav>
     </Navbar.Collapse>

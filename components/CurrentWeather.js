@@ -11,8 +11,9 @@ import hsvToRgb from '../utils/hsvToRgb'
 function getColor(temp, unit){
   let hue = 0
   const multiplier = 255/70
-  if(unit==='fahrenheit')
+  if(unit==='fahrenheit'){
     temp = (temp-32)*5/9
+  }
   if(temp>40)
     hue = 0
   else if(temp < -30)
@@ -31,7 +32,7 @@ const CurrentWeather = ({ selectedUnit, currentWeather }) => {
   let temp = selectedUnit.toLowerCase() === 'celsius' ? temp_c : temp_f
   temp = Math.round(temp)
 
-  const color = getColor(temp,selectedUnit)
+  const color = getColor(temp,selectedUnit.toLowerCase())
 
   return(
     <div className={'current-weather'}>
