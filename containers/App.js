@@ -21,13 +21,13 @@ class App extends Component {
     this.onButtonClick = this.onButtonClick.bind(this)
   }
 
-  getInitialLocation(lat, lon, query){
+  getInitialLocation(lat, lon){
     const { dispatch } = this.props
     const id = createCantorPair(lat, lon)
     dispatch(addLocation(id))
     dispatch(setLocation(id))
-    query = query?query:`${lat},${lon}`
-    dispatch(getAllData(id, query))
+    const q = `${lat},${lon}`
+    dispatch(getAllData(id, q))
   }
 
   onButtonClick(forecast){
@@ -35,10 +35,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props
-    
-    // Vancouver, BC coordinates
-    const coords = {lat: 49.2827, lon: -123.1207}
+    const { dispatch } = this.props   
     
     if ("geolocation" in navigator) {
       // geolocation is available 
@@ -47,11 +44,7 @@ class App extends Component {
         const lon = position.coords.longitude
         this.getInitialLocation(lat, lon)
       })
-    } else {
-      // geolocation IS NOT available
-      this.getInitialLocation(coords.lat, coords.lon, 'vancouver, canada')
-    }
- 
+    } 
     dispatch(getPOTD())
   }
 
