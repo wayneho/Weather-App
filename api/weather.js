@@ -33,7 +33,7 @@ export function fetchLongForecast(query){
 }
 
 export function fetchListOfCities(query){
-   return fetchJsonp(`http://autocomplete.wunderground.com/aq?query=${query}`, {jsonpCallback: 'cb'})
+   return fetchJsonp(`https://autocomplete.wunderground.com/aq?query=${query}`, {jsonpCallback: 'cb'})
     .then(res => {
       if(res.status >= 400)
         console.log("Error retrieving list of cities")
