@@ -19,6 +19,11 @@ body{
     padding-top: 111px;
   } 
 }
+
+canvas{
+  max-height: 200px;
+}
+
 .fade-wait-leave {
   opacity: 1;
 }

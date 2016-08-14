@@ -64,7 +64,9 @@ class ShortTermForecast extends Component{
     const lineOptions = {
       scaleFontColor: "#a5d6ff",
       responsive: true,
-      animation: false
+      animation: false,
+      height: 400,
+      maintainAspectRatio: false
     }
 
     return(
