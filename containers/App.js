@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Grid, Row, Col, ButtonGroup, Button } from 'react-bootstrap'
+import ReactCSSTransitionReplace from 'react-css-transition-replace'
+
 import { getAllData, setLocation, addLocation, getPOTD } from '../actions'
 import createCantorPair from '../utils/createCantorPair'
 
@@ -69,7 +71,6 @@ class App extends Component {
             {noLocationSelected
               ?<h1>No city selected.</h1>
               :<div>
-                <NavigationBar />
                 <Row>
                   <Col xs={12} md={5} >
                     <CurrentWeatherContainer />
@@ -89,17 +90,21 @@ class App extends Component {
                     <div className={'forecast-container'}>
                       <ButtonGroup>
                         <Button onClick={()=>this.onButtonClick('longTerm')}
-                                bsStyle={selectedForecast==='longTerm'?'info':'default'} >
+                                bsStyle={selectedForecast==='longTerm'?'info':'default'}
+                                className={"col-xs-6"} >
                           7 Day Forecast
                         </Button>
                         <Button onClick={()=>this.onButtonClick('hourly')}
-                                bsStyle={selectedForecast==='hourly'?'info':'default'} >
+                                bsStyle={selectedForecast==='hourly'?'info':'default'}
+                                className={"col-xs-6"} >
                           Hourly Forecast
                         </Button>
                       </ButtonGroup>
+                      <ReactCSSTransitionReplace  transitionName="fade-wait" transitionEnterTimeout={450} transitionLeaveTimeout={150}>
                       {selectedForecast==='longTerm'
-                        ?<LongTermContainer />
-                        :<ShortTermContainer /> }
+                        ?<LongTermContainer key={'longTerm'}/>
+                        :<ShortTermContainer key={'shortTerm'}/> }
+                      </ReactCSSTransitionReplace>
                     </div>
                   </Col>
                 </Row>

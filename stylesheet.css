@@ -8,9 +8,36 @@ h1, h2, h3, h4{
 
 body{
   background-image: url("./images/sky.jpg");
+  background-size: cover;
   background-attachment: fixed;
+  background-repeat: no-repeat;
   color: white;
-  padding-top: 90px;
+  padding-top: 60px;
+}
+@media (min-width: 768px){
+  body{
+    padding-top: 111px;
+  } 
+}
+.fade-wait-leave {
+  opacity: 1;
+}
+.fade-wait-leave.fade-wait-leave-active {
+  opacity: 0;
+  transition: opacity .15s ease-in;
+}
+
+.fade-wait-enter {
+  opacity: 0;
+}
+.fade-wait-enter.fade-wait-enter-active {
+  opacity: 1;
+  /* Delay the enter animation until the leave completes */
+  transition: opacity .15s ease-in .3s;
+}
+
+.fade-wait-height {
+  transition: height .3s ease-in-out;
 }
 
 .header .nav{
@@ -27,25 +54,6 @@ body{
   margin-bottom: 20px;
 }
 
-.long-term-forecast li {
-  width: 14%;
-  font-size: 100%;
-  vertical-align: top;
-  margin-bottom: 10px;
-}
-.long-term-forecast li img{
-  width: 75%;
-}
-
-.short-term-forecast li{
-  width: 8%;
-  font-size: 100%;
-  margin-bottom: 10px;
-}
-
-.short-term-forecast li img{
-  width: 100%;
-}
 
 .current-weather{
   background-color: rgba(0,0,0,.5);
@@ -205,6 +213,10 @@ body{
 
 .visible{
   display: initial;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
+  background-color: #3498db;
 }
 
 .nav-item-wrapper{

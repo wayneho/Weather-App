@@ -5,7 +5,7 @@ import NavigationBarItem from './NavigationBarItem'
 import capitalizeWords from '../utils/CapitalizeWords'
 
 const NavigationBar = ({ selectedLocation, locations, locationsOrder }) => (
-  <Nav bsStyle="pills" activeKey={selectedLocation}>
+  <Nav bsStyle="pills" activeKey={selectedLocation} style={{clear: 'left', paddingBottom: '10px'}}>
     {locationsOrder.map(id => {
       if(!locations[id].isFetching)
         return (

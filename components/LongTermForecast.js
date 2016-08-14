@@ -7,15 +7,24 @@ class LongTermForecast extends Component{
   constructor(){
     super()
     this.state = {
-      windowWidth: window.innerWidth
+      tableView: 'vertical'
     }
     this.handleResize = this.handleResize.bind(this)
   }
   handleResize(e) {
-    this.setState({windowWidth: window.innerWidth})
+    this.setState({
+      tableView: window.innerWidth >= 990 ? 'vertical' : 'horizontal'
+    })
+    console.log(this.state.tableView)
+  }
+  componentDidUpdate(){
+
   }
   componentDidMount() {
     window.addEventListener('resize', this.handleResize)
+    this.setState({
+      tableView: window.innerWidth >= 990 ? 'vertical' : 'horizontal'
+    })
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize)
@@ -23,10 +32,11 @@ class LongTermForecast extends Component{
 
   render(){
     const { unit, forecast } = this.props
-    const { windowWidth } = this.state
+    const { tableView } = this.state
     const u = unit.toLowerCase()==='celsius'?'celsius':'fahrenheit'
 
-    return windowWidth >= 990
+    return <div className={"long-term-forecast-container"}>
+      {tableView==='vertical'
       ? <Table className={"text-center table-vertical"}>
           <thead>
             <tr>
@@ -93,7 +103,9 @@ class LongTermForecast extends Component{
             })}
           </tbody>
         </Table>
-    }
+      }
+    </div>
+  }
 }
 
 LongTermForecast.propTypes = {

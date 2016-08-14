@@ -36,7 +36,7 @@ class AddLocationForm extends Component{
       isLoading: true
     })
     const { dispatch } = this.props
-    const inputValue = value.trim().toLowerCase()
+    const inputValue = value.toLowerCase()
 
     fetchListOfCities(inputValue)
       .then(json => {

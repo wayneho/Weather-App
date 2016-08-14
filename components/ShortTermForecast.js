@@ -66,7 +66,7 @@ class ShortTermForecast extends Component{
     }
 
     return(
-      <div>
+      <div className={"short-term-forecast-container"}>
         <ul className={'select-hourly-forecast-view'}>
           <li className={display==='table'?'active-view':''} onClick={()=>this.handleSelect('table')}>Table</li>
           <li className={display==='graph'?'active-view':''} onClick={()=>this.handleSelect('graph')}>Graph</li>

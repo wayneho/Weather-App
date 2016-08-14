@@ -2,6 +2,7 @@ import React from 'react'
 import UnitButtonsContainer from '../containers/UnitButtonsContainer'
 import { Navbar, Nav, NavItem, Button, ButtonGroup, FormGroup, FormControl} from 'react-bootstrap'
 import AddLocationForm from './AddLocationForm'
+import NavigationBar from './NavigationBar'
 
 const Header = () => (
   <Navbar className={'navbar-fixed-top'}>
@@ -22,6 +23,7 @@ const Header = () => (
           <UnitButtonsContainer unit="fahrenheit">Fahrenheit</UnitButtonsContainer>          
         </ButtonGroup>
       </Nav>
+      <NavigationBar />
     </Navbar.Collapse>
     </div>
   </Navbar>

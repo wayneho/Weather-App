@@ -35,7 +35,7 @@ const CurrentWeather = ({ selectedUnit, currentWeather }) => {
   const color = getColor(temp,selectedUnit.toLowerCase())
 
   return(
-    <div className={'current-weather'}>
+    <div className={'current-weather'} key={'current-weather'}>
      <div className={"date"}>{observation_time}</div>
      <h2 style={{color: '#a5d6ff'}}>{full}</h2>
      <h3 style={{color: '#a5d6ff'}}>{country}</h3>
