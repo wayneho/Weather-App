@@ -14,12 +14,17 @@ import ShortTermContainer from './ShortTermContainer'
 import LongTermContainer from './LongTermContainer'
 import PhotoOfTheDay from '../components/PhotoOfTheDay'
 
-
+const backgroundImageStyle = {
+  backgroundImage: 'url(./images/sky.jpg)',
+  backgroundSize: 'cover',
+  backgroundAttachment: 'fixed',
+  backgroundRepeat: 'no-repeat'
+}
 
 class App extends Component {
   constructor(){
     super()
-    this.state = { selectedForecast: 'longTerm' }
+    this.state = { selectedForecast: 'longTerm', isBackgroundLoaded: false }
     this.onButtonClick = this.onButtonClick.bind(this)
   }
 
@@ -36,6 +41,10 @@ class App extends Component {
     this.setState({selectedForecast: forecast})
   }
 
+  onBackgroundLoad(){
+    this.setState({isBackgroundLoaded: true})
+  }
+
   componentDidMount() {
     const { dispatch } = this.props   
     
@@ -47,14 +56,15 @@ class App extends Component {
         this.getInitialLocation(lat, lon)
       })
     } 
+    //get picture of the day
     dispatch(getPOTD())
   }
 
   render(){
     const { isFetching, noLocationSelected } = this.props
-    const { selectedForecast } = this.state
+    const { selectedForecast, isBackgroundLoaded } = this.state
 
-    if(isFetching)
+    if(isFetching || !isBackgroundLoaded)
       return (
         <div>
           <Header />
@@ -65,7 +75,7 @@ class App extends Component {
       )
     else{
       return(
-        <div>
+        <div style={backgroundImageStyle}>
           <Header />
           <Grid>
             {noLocationSelected
