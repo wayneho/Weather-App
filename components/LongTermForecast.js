@@ -15,11 +15,8 @@ class LongTermForecast extends Component{
     this.setState({
       tableView: window.innerWidth >= 990 ? 'vertical' : 'horizontal'
     })
-    console.log(this.state.tableView)
   }
-  componentDidUpdate(){
 
-  }
   componentDidMount() {
     window.addEventListener('resize', this.handleResize)
     this.setState({

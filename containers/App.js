@@ -64,7 +64,7 @@ class App extends Component {
     const { isFetching, noLocationSelected } = this.props
     const { selectedForecast, isBackgroundLoaded } = this.state
 
-    if(isFetching || !isBackgroundLoaded)
+    if(isFetching)
       return (
         <div>
           <Header />
@@ -75,7 +75,7 @@ class App extends Component {
       )
     else{
       return(
-        <div style={backgroundImageStyle}>
+        <div>
           <Header />
           <Grid>
             {noLocationSelected

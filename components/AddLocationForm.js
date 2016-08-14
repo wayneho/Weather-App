@@ -31,30 +31,40 @@ class AddLocationForm extends Component{
     this.removeErrorMessage = this.removeErrorMessage.bind(this)
   }
 
-  loadSuggestions(value){
+  loadSuggestions(inputValue){
     this.setState({
       isLoading: true
     })
     const { dispatch } = this.props
-    const inputValue = value.toLowerCase()
+    inputValue = inputValue.trim().toLowerCase()
 
+    // fetch suggestions asynchronously
     fetchListOfCities(inputValue)
       .then(json => {
+        const value = this.state.value.trim().toLowerCase()
+        // return max 8 suggestions
         const suggestions = json.RESULTS.filter(ind => {
           return ind.type === 'city'
         }).slice(0,8)
-        if(inputValue === this.state.value){
+
+        if(inputValue === value){
           this.setState({
             isLoading: false,
             suggestions
           })
-        }else{ // Ignore suggestions if input value changed
+        }else{
           this.setState({isLoading: false})
         }
       })
       .catch(err => {
         console.log(err)
-        dispatch(setErrorMessage(err))
+        this.setState({
+          selectedCity: '',
+          isLoading: false,
+          value:'',
+          suggestions: []
+        })
+        dispatch(setErrorMessage('Error retrieving cities try again.'))
       })
   }
 
