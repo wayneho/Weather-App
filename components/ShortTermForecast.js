@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
+import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import { ListGroup, ListGroupItem, Table, Tabs, Tab } from 'react-bootstrap'
 import LineGraph from './LineGraph'
 
@@ -62,7 +63,8 @@ class ShortTermForecast extends Component{
 
     const lineOptions = {
       scaleFontColor: "#a5d6ff",
-      responsive: true
+      responsive: true,
+      animation: false
     }
 
     return(
@@ -71,10 +73,10 @@ class ShortTermForecast extends Component{
           <li className={display==='table'?'active-view':''} onClick={()=>this.handleSelect('table')}>Table</li>
           <li className={display==='graph'?'active-view':''} onClick={()=>this.handleSelect('graph')}>Graph</li>
         </ul>
-
+        <ReactCSSTransitionReplace  transitionName="fade-wait" transitionEnterTimeout={450} transitionLeaveTimeout={150}>
         {display==='graph'
-        ? <LineGraph lineData={lineData} lineOptions={lineOptions} />
-        : <div className={'hourly-forecast-table-container'}>
+        ? <LineGraph lineData={lineData} lineOptions={lineOptions} key={'lineGraph'}/>
+        : <div className={'hourly-forecast-table-container'} key={'table'}>
             <Table className={"text-center table-vertical"}>
               <thead>
                 <tr>
@@ -111,6 +113,7 @@ class ShortTermForecast extends Component{
             </Table>
           </div>
         }
+        </ReactCSSTransitionReplace>
       </div>
     )
   }

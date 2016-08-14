@@ -276,7 +276,6 @@ body{
 }
 
 .hourly-forecast-table-container{
-  margin-top: 20px;
   overflow-x: auto;
 }
 .hourly-forecast-table-container>.table{
@@ -286,6 +285,7 @@ body{
 table{
   table-layout: fixed;
   color: #a5d6ff;
+  margin-bottom: 0 !important;
 }
 
 .table-vertical tr>td:first-child{
@@ -324,7 +324,6 @@ table{
 
 
 .line-chart-legend{
-  margin-top: 10px;
   display: flex;
   justify-content: flex-end
 }
@@ -352,6 +351,8 @@ table{
   display: flex;
   justify-content: flex-end;
   color: lightgrey;
+  margin-bottom: 0;
+  padding-bottom: 10px;
 }
 .select-hourly-forecast-view> li{
   display: inline;
